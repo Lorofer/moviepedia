@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <img src="@/assets/img/384x384.png" alt="">
+    <img src="@/assets/img/all-films.png" alt="">
     <h2>{{nameOfCollection}}</h2>
     <p>{{description}}</p>
   </div>
@@ -11,7 +11,13 @@ export default {
   props: {
     'nameOfCollection': String,
     'description': String,
+    //'imagePath': String,
   },
+  // computed:{
+  //   imagePath(){
+  //     return `@/assets/img/${this.imageName}.png`
+  //   }
+  // },
 }
 </script>
 
