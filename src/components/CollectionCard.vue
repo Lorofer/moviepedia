@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <img src="@/assets/img/all-films.png" alt="">
+    <img :src="require('@/assets/img/' + this.imageFileName)" alt="">
     <h2>{{nameOfCollection}}</h2>
     <p>{{description}}</p>
   </div>
@@ -11,13 +11,8 @@ export default {
   props: {
     'nameOfCollection': String,
     'description': String,
-    //'imagePath': String,
+    'imageFileName': String,
   },
-  // computed:{
-  //   imagePath(){
-  //     return `@/assets/img/${this.imageName}.png`
-  //   }
-  // },
 }
 </script>
 
@@ -31,6 +26,7 @@ export default {
 .card-container img{
   padding: 32px 32px 0;
   width: 100%;
+  height: 405px;
 }
 .card-container h2{
   margin: 24px 0;

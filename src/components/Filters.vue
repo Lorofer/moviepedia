@@ -121,7 +121,7 @@ export default {
 #filters{
   width: 300px;
   padding: 24px;
-  box-shadow: 0 0 16px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 0 16px 2px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -175,7 +175,7 @@ label > p{
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 8px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 0 8px 2px rgba(0,0,0,0.2);
 
   transform: scale(1);
   transition: 0.4s;

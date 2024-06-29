@@ -17,18 +17,21 @@ export default {
   <nav class="collections">
     <router-link to="all-movies">
       <CollectionCard
+          imageFileName="all-movies.png"
           nameOfCollection="Все фильмы"
           description="Найти подходящий фильм с помощью фильтров"
       />
     </router-link>
     <div v-on:click="a">
       <CollectionCard
+          imageFileName="top-movies.png"
           nameOfCollection="Топ фильмов"
           description="Лушие фильмы по разным рейтингам"
       />
     </div>
     <div v-on:click="a">
       <CollectionCard
+          imageFileName="random-movie.png"
           nameOfCollection="Рандомный фильм"
           description="Поможет определиться с выбором"
       />
