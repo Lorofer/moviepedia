@@ -6,14 +6,23 @@
     color: #262C40;
     font-family: sans-serif;
 }
+body{
+    min-height: 100vh;
+}
 .wrapper{
     max-width: 1536px;
     margin: auto;
 }
-#app {
-    /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
-    /*-webkit-font-smoothing: antialiased;*/
-    /*-moz-osx-font-smoothing: grayscale;*/
-    /*text-align: center;*/
-    /*color: #2c3e50;*/
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+    border: 1px solid #262C40;
 }

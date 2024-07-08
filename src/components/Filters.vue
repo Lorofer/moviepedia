@@ -7,6 +7,13 @@ export default {
     return {
       minRating: undefined,
       maxRating: undefined,
+
+      defaultGenres: new Set([
+        '!документальный', '!короткометражка',
+        '!музыка', '!игра', '!новости',
+        '!концерт', '!реальное ТВ', '!мюзикл'
+      ]),
+      selectedGenres: new Set(),
     };
   },
   mounted(){
@@ -58,11 +65,7 @@ export default {
           'movie', 'cartoon',
         ],
         'rating.kp': `${this.minRating || 1}-${this.maxRating || 10}`,
-        'genres.name': [
-          '!документальный', '!короткометражка',
-          '!музыка', '!игра', '!новости',
-          '!концерт', '!реальное ТВ', '!мюзикл'
-        ],
+        'genres.name': Array.from(this.selectedGenres).length === 0 ? Array.from(this.defaultGenres) : Array.from(this.selectedGenres),
       };
 
       for(let param of Object.entries(params)){
@@ -79,6 +82,22 @@ export default {
       this.$emit('theUrlHasBeenCreated', url.toString());
     },
 
+    showTheGenreMenu(){
+      const input = document.getElementById('genres-container');
+      input.classList.toggle('show-genres-list');
+    },
+    genresToggle(event){
+      event.stopPropagation();
+      event.target.classList.toggle('selected');
+
+      const currentGenre = event.target.querySelector('p').innerHTML;
+      if(!this.selectedGenres.has(currentGenre)){
+        this.selectedGenres.add(currentGenre);
+      }
+      else{
+        this.selectedGenres.delete(currentGenre);
+      }
+    }
   },
   unmounted(){
     window.removeEventListener('scroll', this.setFiltersHeight);
@@ -89,9 +108,9 @@ export default {
 <template>
   <section id="filters">
     <form action="">
-      <div>
-        <label><p>Рейтинг:</p></label>
-        <div class="rating-inputs-container">
+      <div id="rating-container">
+        <p class="filters-label"><label>Рейтинг:</label></p>
+        <div id="rating-inputs-container">
           <input v-model="minRating"
                  placeholder="От"
                  name="min-rating"
@@ -107,6 +126,39 @@ export default {
                  step="0.1"
           >
         </div>
+      </div>
+      <div id="genres-container">
+        <p class="filters-label"><label>Жанры:</label></p>
+        <div id="select-genre">
+          <p>Выбрать</p>
+          <img
+              id="select-genre-arrow"
+              src="@/assets/img/arrow.png" alt=""
+              v-on:click="showTheGenreMenu"
+          >
+        </div>
+        <ul id="genres-list">
+          <li class="genres-list-item" v-on:click="genresToggle">
+            <p>комедия</p>
+            <img class="mark" src="@/assets/img/mark.png" alt="">
+          </li>
+          <li class="genres-list-item" v-on:click="genresToggle">
+            <p>ужасы</p>
+            <img class="mark" src="@/assets/img/mark.png" alt="">
+          </li>
+          <li class="genres-list-item" v-on:click="genresToggle">
+            <p>фантастика</p>
+            <img class="mark" src="@/assets/img/mark.png" alt="">
+          </li>
+          <li class="genres-list-item" v-on:click="genresToggle">
+            <p>боевик</p>
+            <img class="mark" src="@/assets/img/mark.png" alt="">
+          </li>
+          <li class="genres-list-item" v-on:click="genresToggle">
+            <p>детектив</p>
+            <img class="mark" src="@/assets/img/mark.png" alt="">
+          </li>
+        </ul>
       </div>
       <div>
         <button class="search" type="button" v-on:click="createURL">найти</button>
@@ -126,24 +178,77 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-form > div{
+#filters form > *{
   margin-bottom: 24px;
 }
-label > p{
-  margin-bottom: 12px;
+
+.filters-label{
   font-size: 18px;
+  margin-bottom: 8px;
 }
-.rating-inputs-container{
+#rating-inputs-container{
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.rating-inputs-container > input{
+#rating-inputs-container input{
   height: 36px;
   font-size: 16px;
   padding: 8px;
   width: 47%;
 }
+
+#select-genre{
+  width: 100%;
+  height: 36px;
+  padding: 8px;
+  border: 1px solid #262C40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#select-genre > p{
+  font-size: 18px;
+  color: grey;
+}
+#select-genre > img{
+  height: 100%;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+.show-genres-list #select-genre > img{
+  transform: rotate(-90deg);
+}
+#genres-list{
+  position: absolute;
+  width: 252px;
+  background-color: #fff;
+  border: 1px solid #262C40;
+  z-index: 1;
+  display: none;
+}
+.show-genres-list #genres-list{
+  display: block;
+}
+.genres-list-item{
+  list-style-type: none;
+  font-size: 18px;
+  height: 36px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.genres-list-item:hover{
+  background-color: rgba(128, 128, 128, 0.2);
+}
+.genres-list-item > .mark{
+  height: 100%;
+  display: none;
+}
+.selected > .mark{
+  display: block;
+}
+
 .search{
   width: 100%;
   height: 48px;
@@ -153,6 +258,7 @@ label > p{
   color: white;
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 
   display: flex;
   justify-content: center;

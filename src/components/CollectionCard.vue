@@ -22,6 +22,7 @@ export default {
   text-align: center;
   box-shadow: 0 0 32px 12px rgba(0,0,0,0.1);
   border-radius: 24px;
+  cursor: pointer;
 }
 .card-container img{
   padding: 32px 32px 0;

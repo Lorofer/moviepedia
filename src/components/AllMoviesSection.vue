@@ -49,7 +49,7 @@ export default {
           .then(response => response.json())
           .then(object => {
             this.films = object.docs;
-            this.$emit('filmsReceived', this.films)
+            //this.$emit('filmsReceived', this.films)
           })
           .catch(err => console.error(err));
     },
