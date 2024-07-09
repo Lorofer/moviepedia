@@ -25,7 +25,7 @@ export default {
     url(url){
       this.currentUrl = url;
     },
-    currentUrl(value){
+    currentUrl(){
       this.getFilms(this.currentPage);
     },
   },

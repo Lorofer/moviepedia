@@ -11,6 +11,11 @@
 #app{
   margin: 0 48px;
 }
+@media (max-width: 1280px) {
+  #app{
+    margin: 0 32px;
+  }
+}
 </style>
 <script setup>
 import Header from "@/components/Header.vue";
