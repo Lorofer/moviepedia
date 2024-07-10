@@ -59,6 +59,7 @@ export default {
 @media (max-width: 1280px){
   #all-movies{
     left: 260px;
+    width: calc(100% - 300px);
   }
 }
 </style>
