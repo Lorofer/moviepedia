@@ -53,8 +53,12 @@ export default {
   width: calc(100% - 340px);
   margin-left: 40px;
   margin-bottom: 40px;
-  //border: 1px solid grey;
   position: relative;
   left: 300px;
+}
+@media (max-width: 1280px){
+  #all-movies{
+    left: 260px;
+  }
 }
 </style>

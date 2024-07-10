@@ -78,12 +78,12 @@ export default {
 <style scoped>
 #all-movies-container{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
   grid-template-rows: auto;
   grid-column-gap: 32px;
   grid-row-gap: 48px;
 }
 .film-card{
-  width: 194px
+  width: 100%;
 }
 </style>

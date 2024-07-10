@@ -178,6 +178,11 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
+@media (max-width: 1280px){
+  #filters {
+    width: 260px;
+  }
+}
 #filters form > *{
   margin-bottom: 24px;
 }

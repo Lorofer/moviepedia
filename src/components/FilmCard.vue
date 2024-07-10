@@ -32,7 +32,6 @@ export default {
 }
 .poster-container{
   width: 100%;
-  height: 290px;
   display: flex;
   align-items: center;
   justify-content: center;
