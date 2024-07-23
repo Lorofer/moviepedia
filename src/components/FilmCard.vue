@@ -17,8 +17,10 @@ export default {
           <img :src="this.film.poster.previewUrl" alt="">
         </div>
       </div>
-      <h3>{{this.film.name}}</h3>
-      <p class="year">{{this.film.year}}</p>
+      <div class="name-container">
+        <h3>{{this.film.name}}</h3>
+        <p class="year">{{this.film.year}}</p>
+      </div>
     </div>
   </router-link>
 </template>
@@ -29,12 +31,18 @@ export default {
 }
 .film-card{
   width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .poster-container{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 }
 .poster-body{
   width: 100%;
@@ -49,12 +57,6 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 16px;
-}
-.film-card > h3{
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .rating-container{
   position: absolute;
@@ -73,6 +75,17 @@ export default {
 .rating{
   color: #e1e3e6;
   font-size: 14px;
+}
+
+.name-container{
+  width: 100%;
+  height: 38px;
+}
+.name-container > h3{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .year{
   font-size: 14px;
