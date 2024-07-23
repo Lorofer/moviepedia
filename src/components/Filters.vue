@@ -161,11 +161,11 @@ export default {
         </ul>
       </div>
       <div>
-        <button class="search" type="button" v-on:click="createURL">найти</button>
+        <button class="search" type="button" v-on:click="createURL">Найти</button>
       </div>
     </form>
 
-    <router-link class="back" to="/">вернуться на главную</router-link>
+    <router-link class="back" to="/">Вернуться на главную</router-link>
   </section>
 </template>
 
