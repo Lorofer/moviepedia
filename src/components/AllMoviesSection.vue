@@ -85,5 +85,6 @@ export default {
 }
 .film-card{
   width: 100%;
+  aspect-ratio: 0.58;
 }
 </style>

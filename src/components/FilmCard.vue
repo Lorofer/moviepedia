@@ -43,6 +43,7 @@ export default {
   align-items: center;
   justify-content: center;
   flex: 1;
+  overflow-y: hidden;
 }
 .poster-body{
   width: 100%;
