@@ -88,9 +88,13 @@ export default {
     },
     genresToggle(event){
       event.stopPropagation();
-      event.target.classList.toggle('selected');
 
-      const currentGenre = event.target.querySelector('p').innerHTML;
+      let checkbox = event.target;
+      let label = checkbox.closest('label');
+
+      label.classList.toggle('selected');
+
+      const currentGenre = checkbox.value;
       if(!this.selectedGenres.has(currentGenre)){
         this.selectedGenres.add(currentGenre);
       }
@@ -138,25 +142,40 @@ export default {
           >
         </div>
         <ul id="genres-list">
-          <li class="genres-list-item" v-on:click="genresToggle">
-            <p>комедия</p>
-            <img class="mark" src="@/assets/img/mark.png" alt="">
+          <li class="genres-list-item">
+            <label class="genres-list-item-label" v-on:change="genresToggle">
+              <input type="checkbox" value="комедия" name="" id="">
+              Комедии
+              <img class="mark" src="@/assets/img/mark.png" alt="">
+            </label>
           </li>
-          <li class="genres-list-item" v-on:click="genresToggle">
-            <p>ужасы</p>
-            <img class="mark" src="@/assets/img/mark.png" alt="">
+          <li class="genres-list-item">
+            <label class="genres-list-item-label" v-on:change="genresToggle">
+              <input type="checkbox" value="ужасы" name="" id="">
+              Ужасы
+              <img class="mark" src="@/assets/img/mark.png" alt="">
+            </label>
           </li>
-          <li class="genres-list-item" v-on:click="genresToggle">
-            <p>фантастика</p>
-            <img class="mark" src="@/assets/img/mark.png" alt="">
+          <li class="genres-list-item">
+            <label class="genres-list-item-label" v-on:change="genresToggle">
+              <input type="checkbox" value="фантастика" name="" id="">
+              Фантастика
+              <img class="mark" src="@/assets/img/mark.png" alt="">
+            </label>
           </li>
-          <li class="genres-list-item" v-on:click="genresToggle">
-            <p>боевик</p>
-            <img class="mark" src="@/assets/img/mark.png" alt="">
+          <li class="genres-list-item">
+            <label class="genres-list-item-label" v-on:change="genresToggle">
+              <input type="checkbox" value="боевик" name="" id="">
+              Боевики
+              <img class="mark" src="@/assets/img/mark.png" alt="">
+            </label>
           </li>
-          <li class="genres-list-item" v-on:click="genresToggle">
-            <p>детектив</p>
-            <img class="mark" src="@/assets/img/mark.png" alt="">
+          <li class="genres-list-item">
+            <label class="genres-list-item-label" v-on:change="genresToggle">
+              <input type="checkbox" value="детектив" name="" id="">
+              Детективы
+              <img class="mark" src="@/assets/img/mark.png" alt="">
+            </label>
           </li>
         </ul>
       </div>
@@ -239,14 +258,21 @@ export default {
   list-style-type: none;
   font-size: 18px;
   height: 36px;
-  padding: 8px;
-  display: flex;
-  justify-content: space-between;
 }
 .genres-list-item:hover{
   background-color: rgba(128, 128, 128, 0.2);
 }
-.genres-list-item > .mark{
+.genres-list-item-label{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+.genres-list-item-label input{
+  display: none;
+}
+.genres-list-item-label > .mark{
   height: 100%;
   display: none;
 }
