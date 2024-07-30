@@ -47,9 +47,8 @@ export default {
 }
 
 .card-container img{
-  object-fit: cover;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
 }
 @media (max-width: 1140px) {
   .card-container .image-container{
