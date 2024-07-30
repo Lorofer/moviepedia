@@ -7,7 +7,7 @@ export default {
   },
   methods:{
     a(){
-      alert('Этот раздел еще в разработке');
+
     }
   }
 }
@@ -45,5 +45,17 @@ export default {
   grid: auto / repeat(3, 1fr);
   grid-gap: 64px;
   height: calc(100vh - 256px);
+}
+@media (max-width: 1280px) {
+  .collections{
+    grid-gap: 32px;
+  }
+}
+@media (max-width: 1140px) {
+  .collections{
+    height: auto;
+    grid: repeat(3, 1fr) / auto;
+    margin-bottom: 32px;
+  }
 }
 </style>

@@ -25,7 +25,7 @@ export default {
     url(url){
       this.currentUrl = url;
     },
-    currentUrl(value){
+    currentUrl(){
       this.getFilms(this.currentPage);
     },
   },
@@ -49,7 +49,7 @@ export default {
           .then(response => response.json())
           .then(object => {
             this.films = object.docs;
-            this.$emit('filmsReceived', this.films)
+            //this.$emit('filmsReceived', this.films)
           })
           .catch(err => console.error(err));
     },
@@ -78,12 +78,13 @@ export default {
 <style scoped>
 #all-movies-container{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
   grid-template-rows: auto;
   grid-column-gap: 32px;
   grid-row-gap: 48px;
 }
 .film-card{
-  width: 194px
+  width: 100%;
+  aspect-ratio: 0.58;
 }
 </style>
