@@ -28,6 +28,7 @@ export default {
 <style scoped>
 .film-link{
   width: 100%;
+  aspect-ratio: 0.58;
 }
 .film-card{
   width: 100%;

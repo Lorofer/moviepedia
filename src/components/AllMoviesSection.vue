@@ -1,11 +1,13 @@
 <script>
 import FilmCard from "@/components/FilmCard.vue";
 import Pagination from "@/components/Pagination.vue";
+import MoviesPlaceholdersSection from "@/components/MoviesPlaceholdersSection.vue";
 
 export default {
   components: {
     FilmCard,
-    Pagination
+    Pagination,
+    MoviesPlaceholdersSection
   },
   data(){
     return {
@@ -13,6 +15,7 @@ export default {
       totalPage: 0,
       currentPage: 1,
       currentUrl: String,
+      isFilmsReceived: false,
     }
   },
   props: {
@@ -40,17 +43,20 @@ export default {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          'X-API-KEY': 'SNX0QDE-0GFME71-NNKQD9V-SERWYTV',
+          'X-API-KEY': '2DZ3KR5-RJ3M5F9-P41VECJ-6PFVYC8',
         },
       };
-      //'X-API-KEY': '2DZ3KR5-RJ3M5F9-P41VECJ-6PFVYC8',
 
-      fetch(this.currentUrl, options)
+      return new Promise((resolve, reject) => {
+        this.isFilmsReceived = false;
+        resolve();
+      })
+          .then(() => fetch(this.currentUrl, options))
           .then(response => response.json())
           .then(object => {
             this.films = object.docs;
-            //this.$emit('filmsReceived', this.films)
           })
+          .then(() => this.isFilmsReceived = true)
           .catch(err => console.error(err));
     },
   },
@@ -58,10 +64,13 @@ export default {
 </script>
 
 <template>
-<section id="all-movies">
+<section>
+  <MoviesPlaceholdersSection
+    v-if="!this.isFilmsReceived"
+  />
   <div id="all-movies-container">
     <FilmCard
-        class="film-card"
+        v-if="this.isFilmsReceived"
         v-for="film of this.films"
         v-bind:key="film.id"
         v-bind:film="film"
@@ -82,9 +91,5 @@ export default {
   grid-template-rows: auto;
   grid-column-gap: 32px;
   grid-row-gap: 48px;
-}
-.film-card{
-  width: 100%;
-  aspect-ratio: 0.58;
 }
 </style>
