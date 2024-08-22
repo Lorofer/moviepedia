@@ -7,7 +7,7 @@ export default {
   },
   methods:{
     a(){
-
+      alert('Этот раздел еще в разработке');
     }
   }
 }
