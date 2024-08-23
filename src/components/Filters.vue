@@ -280,6 +280,12 @@ export default {
 .mark{
   width: 20px;
   height: 20px;
+  display: none;
+  position: relative;
+}
+.selected .mark{
+  width: 20px;
+  height: 20px;
   display: inline-block;
   position: relative;
 }
