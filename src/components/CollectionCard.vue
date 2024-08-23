@@ -4,8 +4,10 @@
       <img :src="require('@/assets/img/' + this.imageFileName)" alt="">
     </div>
     <div class="text-container">
-      <h2>{{nameOfCollection}}</h2>
-      <p>{{description}}</p>
+      <div class="text">
+        <h2>{{nameOfCollection}}</h2>
+        <p>{{description}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -45,39 +47,46 @@ export default {
     padding: 18px 0 18px 18px;
   }
 }
+@media (max-width: 576px) {
+  .card-container {
+    height: 230px;
+  }
+}
 
 .card-container img{
   width: 100%;
   aspect-ratio: 1;
 }
 @media (max-width: 1140px) {
-  .card-container .image-container{
-    width: 40%;
-    min-width: 300px;
-    height: 300px;
+  .image-container{
+    flex-basis: 40%;
+    max-width: 350px;
+    aspect-ratio: 1;
   }
 }
 @media (max-width: 700px) {
-  .card-container .image-container{
-    min-width: auto;
-    height: auto;
-    width: 100%;
-  }
   .card-container img{
     object-fit: contain;
   }
 }
 @media (max-width: 576px) {
-  .card-container .image-container{
-    max-width: 218px;
+  .image-container{
+    flex-basis: auto;
+    max-width: none;
+    height: 100%;
   }
 }
 
 @media (max-width: 1140px) {
-  .card-container .text-container{
+  .text-container{
+    flex-basis: 60%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .text{
     max-width: 396px;
-    min-width: 312px;
-    margin: auto;
     padding: 0 16px;
   }
 }
