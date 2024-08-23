@@ -146,35 +146,35 @@ export default {
             <label class="genres-list-item-label" v-on:change="genresToggle">
               <input type="checkbox" value="комедия" name="" id="">
               Комедии
-              <img class="mark" src="@/assets/img/mark.png" alt="">
+              <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
             <label class="genres-list-item-label" v-on:change="genresToggle">
               <input type="checkbox" value="ужасы" name="" id="">
               Ужасы
-              <img class="mark" src="@/assets/img/mark.png" alt="">
+              <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
             <label class="genres-list-item-label" v-on:change="genresToggle">
               <input type="checkbox" value="фантастика" name="" id="">
               Фантастика
-              <img class="mark" src="@/assets/img/mark.png" alt="">
+              <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
             <label class="genres-list-item-label" v-on:change="genresToggle">
               <input type="checkbox" value="боевик" name="" id="">
               Боевики
-              <img class="mark" src="@/assets/img/mark.png" alt="">
+              <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
             <label class="genres-list-item-label" v-on:change="genresToggle">
               <input type="checkbox" value="детектив" name="" id="">
               Детективы
-              <img class="mark" src="@/assets/img/mark.png" alt="">
+              <span class="mark"></span>
             </label>
           </li>
         </ul>
@@ -251,6 +251,11 @@ export default {
   z-index: 1;
   display: none;
 }
+@media (max-width: 1280px){
+  #genres-list {
+    width: 212px;
+  }
+}
 .show-genres-list #genres-list{
   display: block;
 }
@@ -272,12 +277,35 @@ export default {
 .genres-list-item-label input{
   display: none;
 }
-.genres-list-item-label > .mark{
-  height: 100%;
-  display: none;
+.mark{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
 }
-.selected > .mark{
-  display: block;
+.mark::before{
+  position: absolute;
+  left: -3.1px;
+  top: 50%;
+  height: 50%;
+  width: 2px;
+  background-color: black;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+  border-radius: 3px;
+}
+.mark::after{
+  position: absolute;
+  left: -3.1px;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: black;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+  border-radius: 3px;
 }
 
 .search{
