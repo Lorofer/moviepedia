@@ -1,19 +1,12 @@
-# vue_films_app
+# Moviepedia
 
-## Project setup
-```
-npm install
-```
+## Используемые технологии:
+- Vue.js
+- Vue CLI
+- Vue Router
+- Pinia
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Функционал:
+- Просмотр списка фильмов
+- Фильтрация фильмов по рейтингу и жанрам
+- Просмотр подробной информации о фильмах
