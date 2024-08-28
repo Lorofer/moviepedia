@@ -13,6 +13,14 @@ body{
     max-width: 1536px;
     margin: auto;
 }
+#app{
+    margin: 0 48px;
+}
+@media (max-width: 1280px) {
+    #app{
+        margin: 0 32px;
+    }
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
