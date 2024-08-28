@@ -1,47 +1,35 @@
 <template>
-  <div class="all-movies">
-    <Filters
-        id="filters"
-        v-bind:currentPage="this.currentPage"
-        v-on:theUrlHasBeenCreated="setTheURL"
-    />
-    <keep-alive>
-      <AllMoviesSection
-          id="all-movies"
-          v-bind:url="this.url"
-          v-on:currentPage="setTheCurrentPage"
-          v-on:forth="setTheCurrentPage"
-          v-on:back="setTheCurrentPage"
-      />
-    </keep-alive>
-  </div>
+  <section class="all-movies">
+    <Filters id="filters"/>
+    <div id="all-movies">
+      <div id="all-movies-container">
+        <FilmCardPlaceholder v-if="allMoviesStore.loader" v-for="i of 50"/>
+        <FilmCard
+            v-else
+            v-for="movie of allMoviesStore.movies"
+            :key="movie.id"
+            :film="movie"
+        />
+      </div>
+      <Pagination/>
+    </div>
+  </section>
 </template>
 
-<script>
+<script setup>
 import Filters from "@/components/Filters.vue";
 import FilmCard from "@/components/FilmCard.vue";
-import AllMoviesSection from "@/components/AllMoviesSection.vue";
-export default {
-  components:{
-    FilmCard,
-    Filters,
-    AllMoviesSection,
-  },
-  data(){
-    return {
-      currentPage: Number,
-      url: String,
-    };
-  },
-  methods: {
-    setTheURL(url){
-      this.url = url;
-    },
-    setTheCurrentPage(pageNumber){
-      this.currentPage = pageNumber;
-    },
-  },
-};
+import Pagination from "@/components/Pagination.vue";
+import FilmCardPlaceholder from "@/components/FilmCardPlaceholder.vue";
+
+import {useAllMoviesStore} from "@/store/allMoviesStore";
+const allMoviesStore = useAllMoviesStore();
+
+import {onMounted} from "vue";
+onMounted(() => {
+  allMoviesStore.getMovies();
+})
+
 </script>
 
 <style scoped>
@@ -61,5 +49,13 @@ export default {
     left: 260px;
     width: calc(100% - 300px);
   }
+}
+
+#all-movies-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  grid-template-rows: auto;
+  grid-column-gap: 32px;
+  grid-row-gap: 48px;
 }
 </style>

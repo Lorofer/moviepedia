@@ -1,4 +1,6 @@
 <script>
+import {useApiStore} from "@/store/apiStore";
+
 export default {
   props: {
     id: String,
@@ -6,6 +8,8 @@ export default {
   data(){
     return {
       film: {},
+
+      apiStore: useApiStore(),
     }
   },
   mounted(){
@@ -19,7 +23,7 @@ export default {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          'X-API-KEY': 'SNX0QDE-0GFME71-NNKQD9V-SERWYTV',
+          'X-API-KEY': this.apiStore.apiKey,
         },
       };
       //

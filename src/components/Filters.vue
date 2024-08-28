@@ -1,29 +1,16 @@
 <script>
+import {useAllMoviesStore} from "@/store/allMoviesStore";
+
 export default {
-  props:{
-    currentPage: Number,
-  },
   data(){
     return {
-      minRating: undefined,
-      maxRating: undefined,
-
-      defaultGenres: new Set([
-        '!документальный', '!короткометражка',
-        '!музыка', '!игра', '!новости',
-        '!концерт', '!реальное ТВ', '!мюзикл'
-      ]),
-      selectedGenres: new Set(),
+      allMoviesStore: useAllMoviesStore(),
+      isGenresMenuActive: false,
     };
   },
   mounted(){
     window.addEventListener('scroll', this.setFiltersHeight);
     this.setFiltersHeight();
-  },
-  watch:{
-    currentPage(){
-      this.createURL();
-    }
   },
   methods:{
     getTop(){
@@ -51,56 +38,8 @@ export default {
           `${this.getTop()}px`;
     },
 
-    createURL(){
-      const url = new URL('https://api.kinopoisk.dev/v1.4/movie');
-      const params = {
-        page: this.currentPage,
-        limit: 50,
-        notNullFields: [
-          'name', 'premiere.russia', 'poster.url',
-        ],
-        sortField: 'rating.kp',
-        sortType: -1,
-        type: [
-          'movie', 'cartoon',
-        ],
-        'rating.kp': `${this.minRating || 1}-${this.maxRating || 10}`,
-        'genres.name': Array.from(this.selectedGenres).length === 0 ? Array.from(this.defaultGenres) : Array.from(this.selectedGenres),
-      };
-
-      for(let param of Object.entries(params)){
-        if(Array.isArray(param[1])){
-          for(let value of param[1]){
-            url.searchParams.append(param[0], value);
-          }
-        }
-        else{
-          url.searchParams.set(param[0], param[1].toString());
-        }
-      }
-
-      this.$emit('theUrlHasBeenCreated', url.toString());
-    },
-
-    showTheGenreMenu(){
-      const input = document.getElementById('genres-container');
-      input.classList.toggle('show-genres-list');
-    },
-    genresToggle(event){
-      event.stopPropagation();
-
-      let checkbox = event.target;
-      let label = checkbox.closest('label');
-
-      label.classList.toggle('selected');
-
-      const currentGenre = checkbox.value;
-      if(!this.selectedGenres.has(currentGenre)){
-        this.selectedGenres.add(currentGenre);
-      }
-      else{
-        this.selectedGenres.delete(currentGenre);
-      }
+    genresToggle(genre){
+      return this.allMoviesStore.selectedGenres.has(genre);
     }
   },
   unmounted(){
@@ -115,14 +54,14 @@ export default {
       <div id="rating-container">
         <p class="filters-label"><label>Рейтинг:</label></p>
         <div id="rating-inputs-container">
-          <input v-model="minRating"
+          <input v-model="this.allMoviesStore.minRating"
                  placeholder="От"
                  name="min-rating"
                  type="number"
                  min="1" max="10"
                  step="0.1"
           >
-          <input v-model="maxRating"
+          <input v-model="this.allMoviesStore.maxRating"
                  placeholder="До"
                  name="max-rating"
                  type="number"
@@ -131,48 +70,48 @@ export default {
           >
         </div>
       </div>
-      <div id="genres-container">
+      <div id="genres-container" :class="{'show-genres-list': isGenresMenuActive}">
         <p class="filters-label"><label>Жанры:</label></p>
         <div id="select-genre">
           <p>Выбрать</p>
           <img
               id="select-genre-arrow"
               src="@/assets/img/arrow.png" alt=""
-              v-on:click="showTheGenreMenu"
+              v-on:click="this.isGenresMenuActive = !this.isGenresMenuActive"
           >
         </div>
         <ul id="genres-list">
           <li class="genres-list-item">
-            <label class="genres-list-item-label" v-on:change="genresToggle">
-              <input type="checkbox" value="комедия" name="" id="">
+            <label for="comedy" :class="['genres-list-item-label', {'selected': this.genresToggle('комедия')}]">
+              <input type="checkbox" value="комедия" name="" id="comedy" v-model="this.allMoviesStore.selectedGenres">
               Комедии
               <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
-            <label class="genres-list-item-label" v-on:change="genresToggle">
-              <input type="checkbox" value="ужасы" name="" id="">
+            <label for="horrors" :class="['genres-list-item-label', {'selected': this.genresToggle('ужасы')}]">
+              <input type="checkbox" value="ужасы" name="" id="horrors" v-model="this.allMoviesStore.selectedGenres">
               Ужасы
               <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
-            <label class="genres-list-item-label" v-on:change="genresToggle">
-              <input type="checkbox" value="фантастика" name="" id="">
+            <label for="fantasy" :class="['genres-list-item-label', {'selected': this.genresToggle('фантастика')}]">
+              <input type="checkbox" value="фантастика" name="" id="fantasy" v-model="this.allMoviesStore.selectedGenres">
               Фантастика
               <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
-            <label class="genres-list-item-label" v-on:change="genresToggle">
-              <input type="checkbox" value="боевик" name="" id="">
+            <label for="action" :class="['genres-list-item-label', {'selected': this.genresToggle('боевик')}]">
+              <input type="checkbox" value="боевик" name="" id="action" v-model="this.allMoviesStore.selectedGenres">
               Боевики
               <span class="mark"></span>
             </label>
           </li>
           <li class="genres-list-item">
-            <label class="genres-list-item-label" v-on:change="genresToggle">
-              <input type="checkbox" value="детектив" name="" id="">
+            <label for="detective" :class="['genres-list-item-label', {'selected': this.genresToggle('детектив')}]">
+              <input type="checkbox" value="детектив" name="" id="detective" v-model="this.allMoviesStore.selectedGenres">
               Детективы
               <span class="mark"></span>
             </label>
@@ -180,7 +119,7 @@ export default {
         </ul>
       </div>
       <div>
-        <button class="search" type="button" v-on:click="createURL">Найти</button>
+        <button class="search" type="button" v-on:click="this.allMoviesStore.getMovies">Найти</button>
       </div>
     </form>
 
