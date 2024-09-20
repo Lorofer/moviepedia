@@ -1,7 +1,7 @@
 <template>
   <div class="card-container">
     <div class="image-container">
-      <img :src="require('@/assets/img/' + this.imageFileName)" alt="">
+      <img :src="pathToImg" alt="">
     </div>
     <div class="text-container">
       <div class="text">
@@ -14,6 +14,11 @@
 
 <script>
 export default {
+  computed: {
+    pathToImg(){
+      return new URL(`/src/assets/img/${this.imageFileName}`, import.meta.url).href
+    }
+  },
   props: {
     'nameOfCollection': String,
     'description': String,
